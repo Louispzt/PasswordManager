@@ -4,7 +4,8 @@ import Displays.DisplayPassword;
 import Displays.Frame;
 
 public class Main {
+    public static Frame frame;
     public static void main(String[] args) {
-        new Frame(new DisplayPassword());
+        frame = new Frame(new DisplayPassword());
     }
 }

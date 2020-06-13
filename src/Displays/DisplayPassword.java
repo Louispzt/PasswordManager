@@ -1,6 +1,7 @@
 package Displays;
 
 import Buttons.QuitButton;
+import src.Main;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -8,38 +9,44 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DisplayPassword extends Display {
+public class DisplayPassword extends Display{
     private JPasswordField passwordField;
     private JProgressBar progressBar;
     private JButton next_bt;
     private JButton quit_bt;
 
-    public DisplayPassword(){
-        passwordField = new JPasswordField();
-        progressBar = new JProgressBar();
-        next_bt = new JButton();
-        quit_bt = new QuitButton("Quit");
+    public DisplayPassword() {
+        passwordField = new JPasswordField(20);
 
-        setBorder(new EmptyBorder(10, 10, 10, 10));
         setLayout(new GridBagLayout());
-
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.NORTH;
-
-        add(new JLabel("<html><h1><strong><i></i></strong></h1><hr></html>"), gbc);
-
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(0, 0, 40, 0); //margin
         gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 2;
+        add(new JLabel("<html><h1>Password Manager</h1></html>"), gbc);
 
-        JPanel buttons = new JPanel(new GridBagLayout());
-        buttons.add(new JButton("Start"), gbc);
-        buttons.add(new JButton("Show scores"), gbc);
-        buttons.add(new JButton("Help"), gbc);
-        buttons.add(new JButton("Exit"), gbc);
+        gbc.insets = new Insets(5, 5, 5, 5); //5px margin
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy++;
+        add(new JLabel("Master Password:"), gbc);
+        gbc.gridx++;
+        add(passwordField, gbc);
 
-        gbc.weighty = 1;
-        add(buttons, gbc);
+        gbc.gridx = 0;
+        gbc.gridy++;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.insets = new Insets(40, 5, 5, 5); //margin
+        add(new JButton("Next"), gbc);
+        
+        gbc.gridy++;
+        gbc.gridx=0;
+        gbc.insets = new Insets(5, 5, 5, 5); //margin
+        add(new QuitButton("Quit"), gbc);
     }
 
 }

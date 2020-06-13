@@ -6,12 +6,12 @@ import java.awt.*;
 public class Frame extends JFrame{
     public Frame(Display display) {
         this.setTitle("Bouton");
-        this.setSize(1280, 720);
+        this.setSize(400,300);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
 
-        this.getContentPane().add(display, BorderLayout.CENTER, 0);
+        this.getContentPane().add(display);
 
         this.setVisible(true);
     }
