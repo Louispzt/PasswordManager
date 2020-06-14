@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PWManagerSwing:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PWManagerSwing_jar</output-path>
+    <root id="archive" name="PWManagerSwing.jar">
+      <element id="module-output" name="PWManagerSwing" />
+    </root>
+  </artifact>
+</component>
