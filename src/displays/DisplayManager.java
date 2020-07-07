@@ -70,7 +70,7 @@ public class DisplayManager extends Display
                 if (id == null)
                     return;
                 pwmaxlength.setText(String.valueOf(id.getLength()));
-                password.setText(rsa.codeAndStr(list.getSelectedValue().getName() + "" + id.getId(), id.getLength()));
+                password.setText(rsa.codeAndStrCB(list.getSelectedValue().getName() + "" + id.getId(), id.getLength(), id.getAscii()));
                 pwmaxlength.setText(String.valueOf(id.getLength()));
                 pwlength.setText("Length : " + String.valueOf(password.getPassword().length));
             }

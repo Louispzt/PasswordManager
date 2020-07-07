@@ -15,8 +15,10 @@ public class DisplayPassword extends Display{
     private final JPasswordField passwordField;
     private final JProgressBar progressBar;
     private final JButton next_bt;
+    private boolean ctrl_down;
 
     public DisplayPassword() {
+        ctrl_down = false;
         next_bt = new JButton("Next");
         next_bt.addActionListener(new ActionListener() {
             @Override
@@ -44,10 +46,20 @@ public class DisplayPassword extends Display{
                 if (e.getKeyCode() == KeyEvent.VK_ENTER){
                     next_bt.doClick();
                 }
+                if (e.getKeyCode() == KeyEvent.VK_CONTROL){
+                    ctrl_down = true;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE && ctrl_down){
+                    progressBar.setValue(0);
+                    passwordField.setText("");
+                }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_CONTROL){
+                    ctrl_down = false;
+                }
                 char[] pw = passwordField.getPassword();
                 int value = (pw.length * 100) / MAX_LENGTH;
                 value = Math.min(value, 100);

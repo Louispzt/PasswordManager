@@ -17,6 +17,7 @@ import javax.swing.text.PlainDocument;
 /* ListDemo.java requires no other files. */
 public class DisplayEditor extends Display
         implements ListSelectionListener{
+    private final JCheckBox asciionly;
     private JList<Item> list;
     private DefaultListModel<Item> listView;
     private DefaultComboBoxModel<Id> choiceModel;
@@ -41,6 +42,7 @@ public class DisplayEditor extends Display
         remove_bt.addActionListener(new RemoveListener());
         listView = new DefaultListModel<>();
         listView.addAll(saveFile.items.values());
+        asciionly = new JCheckBox();
 
         new_app = new JTextField(16);
         new_log = new JTextField(16);
@@ -59,6 +61,7 @@ public class DisplayEditor extends Display
                 return;
             new_log.setText(id.getId());
             new_pwlength.setText(String.valueOf(id.getLength()));
+            asciionly.setSelected(id.getAscii());
         });
 
 
@@ -106,8 +109,23 @@ public class DisplayEditor extends Display
         gbc.gridy++;
         gbc.gridwidth = 1;
         buttonPane.add(new JLabel("Max Length :"), gbc);
+
+        GridBagConstraints newgb = new GridBagConstraints();
+        newgb.insets = new Insets(0, 5, 20, 5); //margin
+        newgb.gridx = 0;
+        newgb.gridwidth = 1;
+        newgb.anchor = GridBagConstraints.WEST;
+        newgb.gridx++;
+        newgb.anchor = GridBagConstraints.EAST;
+        buttonPane.add(new JLabel("ASCII only :"), newgb);
+
         gbc.gridx++;
         buttonPane.add(new_pwlength, gbc);
+        gbc.gridx++;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.gridx++;
+        gbc.insets = new Insets(0, -5, 20, 1); //margin
+        buttonPane.add(asciionly, gbc);
 
 
 
@@ -166,6 +184,7 @@ public class DisplayEditor extends Display
         new_app.setText("");
         new_log.setText("");
         new_pwlength.setText("");
+        asciionly.setSelected(false);
     }
 
     private class EditListener implements ActionListener {
@@ -177,7 +196,7 @@ public class DisplayEditor extends Display
                 Id newId = (Id) choiceBox.getSelectedItem();
                 int idIndex = choiceBox.getSelectedIndex();
                 if (newId != null){
-                    newId.setIdAndLength(new_log.getText(), new_pwlength.getText());
+                    newId.setAll(new_log.getText(), new_pwlength.getText(), asciionly.isSelected());
                     choiceBox.setSelectedIndex(idIndex);
                 }
                 newItem.setName(new_app.getText());
@@ -198,18 +217,18 @@ public class DisplayEditor extends Display
             if (item != null){
                 Id id = item.getIds().get(new_log.getText());
                 if (id == null){
-                    Id newid = new Id(new_log.getText(), new_pwlength.getText());
+                    Id newid = new Id(new_log.getText(), new_pwlength.getText(), asciionly.isSelected());
                     item.getIds().put(new_log.getText(), newid);
                     choiceModel.addElement(newid);
                 }
                 else{
-                    id.setIdAndLength(new_log.getText(), new_pwlength.getText());
+                    id.setAll(new_log.getText(), new_pwlength.getText(), asciionly.isSelected());
                 }
             }
             else{
                 if (new_app.getText().equals("") || new_app.getText().matches("[ ]+") || new_log.getText().equals("") || new_log.getText().matches("[ ]+"))
                     return;
-                Item newitem = new Item(new_app.getText(), new_log.getText(), new_pwlength.getText());
+                Item newitem = new Item(new_app.getText(), new_log.getText(), new_pwlength.getText(), asciionly.isSelected());
                 saveFile.items.put(new_app.getText(), newitem);
                 listView.add(listView.size(), newitem);
             }

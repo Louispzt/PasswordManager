@@ -52,9 +52,9 @@ public class SaveFile {
 
     public void save() throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(path));
-        writer.write("id: " + rsa.code("saveFile") +"\n");
+        writer.write("id: " + rsa.code("saveFile", false) +"\n");
         for (String str : items.keySet()){
-            writer.write(rsa.code(items.get(str).getString())+"\n");
+            writer.write(rsa.code(items.get(str).getString(), false)+"\n");
         }
         for (String str : arr){
             writer.write(str+"\n");

@@ -20,10 +20,10 @@ public class Item implements Comparable<Object>{
         }
     }
 
-    public Item(String name, String id, String length){
+    public Item(String name, String id, String length, boolean bool){
         ids = new TreeMap<>();
         this.name = name.toLowerCase();
-        ids.put(id, new Id(id, length));
+        ids.put(id, new Id(id, length, bool));
     }
 
     public String getName() {
